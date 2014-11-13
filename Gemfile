@@ -39,3 +39,7 @@ gem 'spring',        group: :development
 # gem 'debugger', group: [:development, :test]
 
 gem 'devise'
+
+gem 'tzinfo-data' # for windows development http://tzinfo.github.io/datasourcenotfound
+
+#anoothert comment
