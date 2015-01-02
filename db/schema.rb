@@ -11,10 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150102213041) do
+ActiveRecord::Schema.define(version: 20150102220803) do
+
+  create_table "measurement_types", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "measurements", force: true do |t|
-    t.integer  "type_id"
+    t.integer  "measurement_type_id"
     t.integer  "user_id"
     t.datetime "datetime"
     t.string   "value"
