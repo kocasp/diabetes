@@ -10,6 +10,7 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
+ *= require font-awesome
  *= require_tree .
  *= require_self
  */
@@ -21,5 +22,17 @@
 .navbar-top-noradius{
 	border-radius: 0px;
 	margin-bottom: 0px;
+}
+.blue-stripe{
+	background-color: #24b3fd;
+	color: #ffffff;
+	padding-bottom: 50px;
+}
+.logo-horizontal{
+	margin-top: -14px;
+}
+.register-button{
+	font-size: 24px;
+	background-color: #3e3f3a;
 }
 /* TODO figure out how this is working and check if ok from code quality perspective */

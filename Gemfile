@@ -49,3 +49,5 @@ gem 'tzinfo-data' # for windows development http://tzinfo.github.io/datasourceno
 gem 'bootstrap-sass', '~> 3.2.0'
 gem 'autoprefixer-rails'
 gem 'bootswatch-rails'
+
+gem "font-awesome-rails"
