@@ -14,7 +14,13 @@ Things you may want to cover:
 * Database creation
 
 * Database initialization
+	Make sure you initially have
 
+	* "sugar" with ID 1
+	* "insulin" with ID 2
+	* "food" with ID 3
+
+	in database to let app work properly.
 * How to run the test suite
 
 * Services (job queues, cache servers, search engines, etc.)
