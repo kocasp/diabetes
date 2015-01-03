@@ -13,11 +13,11 @@
 
   <div class="field">
     <%= f.label :measurement_type_id %><br>
-    <%= f.number_field :measurement_type_id %>
+    <%= f.collection_select(:measurement_type_id, MeasurementType.all, :id, :name) %>
   </div>
   <div class="field">
     <%= f.label :user_id %><br>
-    <%= f.number_field :user_id %>
+    <%= f.number_field :user_id, :value => current_user.id ,:readonly => true %>
   </div>
   <div class="field">
     <%= f.label :datetime %><br>

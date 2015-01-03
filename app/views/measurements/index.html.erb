@@ -1,5 +1,20 @@
 <h1>Listing measurements</h1>
 
+<%= form_tag("/inputs", method: "post") do %>
+  Sugar:
+  <%= number_field :input, :sugar %>
+  <br>
+  Insulin:
+  <%= number_field :input, :insulin, step: 0.1 %>
+  <br>
+  Food:
+  <%= number_field :input, :food, step: 0.5 %>
+  <br>
+  <%= datetime_select :input, :datetime %>
+  <br>
+  <%= submit_tag("Submit") %>
+<% end %>
+
 <table>
   <thead>
     <tr>
@@ -27,5 +42,13 @@
 </table>
 
 <br>
+
+
+<%= form_tag("/measurements", method: "get") do %>
+  <%= date_select :date, :date, default: @selected_day %>
+  <br>
+  <%= submit_tag("Show") %>
+<% end %>
+
 
 <%= link_to 'New Measurement', new_measurement_path %>

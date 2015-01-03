@@ -1,11 +1,18 @@
 class MeasurementsController < ApplicationController
   before_action :set_measurement, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, only: [:create, :destroy]
+  before_action :authenticate_user!, only: [:new, :create, :destroy]
 
   respond_to :html
 
   def index
-    @measurements = Measurement.all
+    #TODO find another way to parse date from date_select ?
+    date = params[:date]
+    if date.present?
+      @selected_day = Date.new(date['date(1i)'].to_i,date['date(2i)'].to_i,date['date(3i)'].to_i)
+    else
+      @selected_day = DateTime.current
+    end
+    @measurements = Measurement.where(datetime: @selected_day.beginning_of_day..@selected_day.end_of_day)
     respond_with(@measurements)
   end
 
@@ -23,6 +30,7 @@ class MeasurementsController < ApplicationController
 
   def create
     @measurement = Measurement.new(measurement_params)
+    @measurement.user = current_user
     @measurement.save
     respond_with(@measurement)
   end
@@ -43,6 +51,6 @@ class MeasurementsController < ApplicationController
     end
 
     def measurement_params
-      params.require(:measurement).permit(:measurement_type_id, :user_id, :datetime, :value)
+      params.require(:measurement).permit(:measurement_type_id, :datetime, :value)
     end
 end
