@@ -1,3 +1,7 @@
+    <center style="background-color: #DBDADA;">
+    <div id="drop_container" style="width: 800px; height: 410px; ">
+    </div>
+  </center>
 <div class="container">
 <%= form_tag("/inputs", method: "post") do %>
   Sugar:
@@ -53,3 +57,10 @@
 <%= link_to 'New Measurement', new_measurement_path %>
 <button class="btn btn-default" type="submit">Button</button>
 </div>
+<%= javascript_include_tag "banner" %>
+<script>
+  
+  var stage = new swiffy.Stage(document.getElementById('drop_container'),
+      swiffy_drop, {  });
+  stage.start();
+</script>
