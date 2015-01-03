@@ -46,4 +46,6 @@ gem 'devise'
 
 gem 'tzinfo-data' # for windows development http://tzinfo.github.io/datasourcenotfound
 
-#anoothert comment
+gem 'bootstrap-sass', '~> 3.2.0'
+gem 'autoprefixer-rails'
+gem 'bootswatch-rails'
