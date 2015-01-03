@@ -32,7 +32,8 @@ class MeasurementsController < ApplicationController
     @measurement = Measurement.new(measurement_params)
     @measurement.user = current_user
     @measurement.save
-    respond_with(@measurement)
+    #respond_with(@measurement)
+    redirect_to show_profile_path
   end
 
   def update
@@ -42,7 +43,8 @@ class MeasurementsController < ApplicationController
 
   def destroy
     @measurement.destroy
-    respond_with(@measurement)
+    #respond_with(@measurement)
+    redirect_to show_profile_path
   end
 
   private

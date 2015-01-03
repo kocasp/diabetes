@@ -12,6 +12,6 @@ class InputsController < ApplicationController
 	    insulin.save if insulin.value != 0
 	    food = Measurement.new(datetime: datetime, value: input[:food].to_f, user: current_user, measurement_type_id: 3)
 	    food.save if food.value != 0
-		redirect_to root_path
+		redirect_to show_profile_path
 	end
 end

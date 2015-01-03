@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   devise_for :users
   resources :measurements
   post 'inputs', to: 'inputs#create'
+  get 'profile', to: 'profile#show', as: 'show_profile'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

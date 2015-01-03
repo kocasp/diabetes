@@ -1,0 +1,189 @@
+<div class="row" style="background-color: #24b3fd; ">
+  <div class="container">
+    <center style="padding-top: 10px; padding-bottom: 10px">
+      <div class="collapse.in" id="chartdiv" style="width: 100%; height: 450px; background-color: #3e3f3a; border-radius:15px; " ></div>
+      <a href="#chartdiv" data-toggle="collapse" aria-expanded="true" aria-controls="chartdiv" class="btn btn-default btn-xs">HIDE / SHOW</a>
+    </center>
+  </div>
+</div>
+<div class="container">
+<%= form_tag("/inputs", method: "post") do %>
+  Sugar:
+  <%= number_field :input, :sugar, class: "form-control" %>
+  <br>
+  Insulin:
+  <%= number_field :input, :insulin, step: 0.1, class: "form-control" %>
+  <br>
+  Food:
+  <%= number_field :input, :food, step: 0.5, class: "form-control" %>
+  <br>
+  <%= datetime_select :input, :datetime %>
+  <br>
+  <%= submit_tag("Submit") %>
+<% end %>
+
+<table class="table table-striped table-hover ">
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>User</th>
+      <th>Datetime</th>
+      <th>Value</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @measurements.each do |measurement| %>
+      <tr>
+        <td><%= measurement.measurement_type_id %></td>
+        <td><%= measurement.user_id %></td>
+        <td><%= measurement.datetime %></td>
+        <td><%= measurement.value %></td>
+        <td><%= link_to 'Show', measurement %></td>
+        <td><%= link_to 'Edit', edit_measurement_path(measurement) %></td>
+        <td><%= link_to 'Destroy', measurement, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+
+<%= form_tag("/profile", method: "get") do %>
+  <%= date_select :date, :date, default: @selected_day %>
+  <br>
+  <%= submit_tag("Show") %>
+<% end %>
+
+
+<%= link_to 'New Measurement', new_measurement_path %>
+<button class="btn btn-default" type="submit">Button</button>
+</div>
+
+<script type="text/javascript" src="http://cdn.amcharts.com/lib/3/amcharts.js"></script>
+<script type="text/javascript" src="http://cdn.amcharts.com/lib/3/serial.js"></script>
+<script type="text/javascript" src="http://cdn.amcharts.com/lib/3/themes/dark.js"></script>
+<script type="text/javascript">
+      AmCharts.makeChart("chartdiv",
+        {
+          "type": "serial",
+          "pathToImages": "http://cdn.amcharts.com/lib/3/images/",
+          "categoryField": "date",
+          "dataDateFormat": "YYYY-MM-DD HH:NN",
+          "theme": "dark",
+          "categoryAxis": {
+            "minPeriod": "mm",
+            "parseDates": true
+          },
+          "chartCursor": {
+            "categoryBalloonDateFormat": "JJ:NN"
+          },
+          "chartScrollbar": {},
+          "trendLines": [],
+          "graphs": [
+            {
+              "balloonText": "[[value]] mg/dl",
+              "bullet": "round",
+              "bulletBorderAlpha": 1,
+              "bulletBorderColor": "#FFFFFF",
+              "bulletBorderThickness": 22,
+              "bulletSize": 3,
+              "columnWidth": 0,
+              "fillColors": "#FF0000",
+              "fillToAxis": "Not set",
+              "id": "Sugar",
+              "lineAlpha": 0.73,
+              "lineColor": "#FF0000",
+              "lineThickness": 3,
+              "minBulletSize": 5,
+              "negativeBase": 165,
+              "negativeFillAlphas": 0,
+              "negativeFillColors": "#FFFFFF",
+              "negativeLineAlpha": 0.07,
+              "negativeLineColor": "#D4D4D4",
+              "stackable": false,
+              "title": "Sugar",
+              "type": "smoothedLine",
+              "valueAxis": "mg/dl",
+              "valueField": "sugar"
+            },
+            {
+              "balloonText": "[[value]] WW",
+              "columnWidth": 0.87,
+              "connect": false,
+              "fillAlphas": 1,
+              "fillColors": "#888888",
+              "fixedColumnWidth": 35,
+              "id": "Food",
+              "lineAlpha": 0,
+              "title": "Food",
+              "type": "column",
+              "valueField": "food"
+            },
+            {
+              "balloonText": "[[value]] j.",
+              "fillAlphas": 1,
+              "fillColors": "#24b3fd",
+              "fixedColumnWidth": 35,
+              "fontSize": -1,
+              "id": "Insuline",
+              "lineAlpha": 0,
+              "title": "Insuline",
+              "type": "column",
+              "valueField": "insuline"
+            }
+          ],
+          "guides": [],
+          "valueAxes": [
+            {
+              "id": "j/WW",
+              "maximum": 35,
+              "stackType": "regular",
+              "title": "j/WW"
+            },
+            {
+              "id": "mg/dl",
+              "maximum": 400,
+              "minimum": 0,
+              "minMaxMultiplier": 0,
+              "position": "right",
+              "precision": 0,
+              "synchronizationMultiplier": 0,
+              "synchronizeWith": "Not set",
+              "totalText": "",
+              "unit": "",
+              "gridAlpha": 0,
+              "gridThickness": 0,
+              "minorGridAlpha": 0,
+              "title": "mg/dl"
+            }
+          ],
+          "allLabels": [],
+          "balloon": {},
+          "legend": {
+            "useGraphSettings": true
+          },
+          "titles": [
+            {
+              "id": "Title-1",
+              "size": 15,
+              "text": "Daily Results"
+            }
+          ],
+          //TODO refactor and explain basing on original graph data structure
+          "dataProvider": [
+          //TODO add edge values to keep the graph zoom and margins. Can be 300am and 259am. (see profile_controller TODO)
+            <% @measurements_by_date.each do |datetime, measurements| %>
+            {
+              "date": "<%= datetime.to_s(:db) %>",
+              <% measurements.each do |m| %>
+              "<%= m.measurement_type.name %>": "<%= m.value %>",
+              <% end %>
+            },
+            <% end %>
+          ]
+        }
+      );
+    </script>

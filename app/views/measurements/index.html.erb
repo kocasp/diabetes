@@ -1,3 +1,4 @@
+    <%# TODO move this to new view . Has nothing to do with measurements now %>
     <center style="background-color: #DBDADA;">
       <div id="drop_container" style="width: 800px; height: 410px; ">
       </div>
@@ -47,61 +48,8 @@
     </div>
   </div>
 </div>
-<div class="container">
-<%= form_tag("/inputs", method: "post") do %>
-  Sugar:
-  <%= number_field :input, :sugar, class: "form-control" %>
-  <br>
-  Insulin:
-  <%= number_field :input, :insulin, step: 0.1, class: "form-control" %>
-  <br>
-  Food:
-  <%= number_field :input, :food, step: 0.5, class: "form-control" %>
-  <br>
-  <%= datetime_select :input, :datetime %>
-  <br>
-  <%= submit_tag("Submit") %>
-<% end %>
-
-<table class="table table-striped table-hover ">
-  <thead>
-    <tr>
-      <th>Type</th>
-      <th>User</th>
-      <th>Datetime</th>
-      <th>Value</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @measurements.each do |measurement| %>
-      <tr>
-        <td><%= measurement.measurement_type_id %></td>
-        <td><%= measurement.user_id %></td>
-        <td><%= measurement.datetime %></td>
-        <td><%= measurement.value %></td>
-        <td><%= link_to 'Show', measurement %></td>
-        <td><%= link_to 'Edit', edit_measurement_path(measurement) %></td>
-        <td><%= link_to 'Destroy', measurement, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-
-<%= form_tag("/measurements", method: "get") do %>
-  <%= date_select :date, :date, default: @selected_day %>
-  <br>
-  <%= submit_tag("Show") %>
-<% end %>
-
-
-<%= link_to 'New Measurement', new_measurement_path %>
-<button class="btn btn-default" type="submit">Button</button>
-</div>
+<%# TODO invastigate data turbolinks true %>
+<%# TODO fore swiffy js to load avery time. It is not working when hitting back or clicking link (turbolinks?) %>
 <%= javascript_include_tag "banner" %>
 <script>
   

@@ -4,60 +4,14 @@
   <title>Diabetes</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'https://www.gstatic.com/swiffy/v7.1/runtime.js', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'https://www.gstatic.com/swiffy/v7.1/runtime.js' %>
 
 
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <%# TODO this should go to partial! : %>
-<div class="navbar navbar-default navbar-top-noradius">
-  <div class="navbar-header">
-    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-    </button>
-    <a class="navbar-brand" href="<%= root_path %>">
-      <%= image_tag 'logo_horizontal.png', class: 'logo-horizontal' %>
-    </a>
-  </div>
-  <div class="navbar-collapse collapse navbar-responsive-collapse">
-    <ul class="nav navbar-nav">
-      <li class="active"><a href="#">Homepage</a></li>
-      <li><a href="https://github.com/kocasp/diabetes" target="_blank">View on GitHub <%= fa_icon "github-alt" %></a></li>
-<!--       <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-        <ul class="dropdown-menu">
-          <li><a href="#">Home</a></li>
-          <li><a href="#">Another action</a></li>
-          <li><a href="#">Something else here</a></li>
-          <li class="divider"></li>
-          <li class="dropdown-header">Dropdown header</li>
-          <li><a href="#">Separated link</a></li>
-          <li><a href="#">One more separated link</a></li>
-        </ul>
-      </li> -->
-    </ul>
-    <ul class="nav navbar-nav navbar-right">
-      <% unless user_signed_in?%>
-      <%# TODO change to link_to method with class params %>
-      <li><a href="<%= new_user_session_path %>">Log in</a></li>
-      <li><a href="<%= new_user_registration_path %>">Sign up</a></li>
-      <% end %>
-      <li class="dropdown">
-      	<% if user_signed_in?%>
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Profile <b class="caret"></b></a>
-        <ul class="dropdown-menu">
-          <li><a href="#">Profile details</a></li>
-          <li class="divider"></li>
-          <li><a data-method="delete" href="<%= destroy_user_session_path %>">Log out</a></li>
-        </ul>
-        <% end %>
-      </li>
-    </ul>
-  </div>
-</div>
+
+<%= render 'layouts/navbar.html.erb' %>
 
 <%= yield %>
 
